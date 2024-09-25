@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../img/ai image.webp';
+import logo from '../img/ima.webp';
 
 function Header() {
   return (
