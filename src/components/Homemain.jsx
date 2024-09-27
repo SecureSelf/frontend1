@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from './Header';
+
 import exampleImage from '../img/first.jpg';  // Make sure to replace with the actual image path
 import { styles } from '../styles';
 function Homemain() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       
       {/* Main Section */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-[90px] px-8 py-12">

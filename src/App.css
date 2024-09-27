@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* Common Component */
+body a{
+  text-decoration: none;
+}
+.gap-10{
+  gap: 10px;
+}
+.gap-15{
+  gap: 15px;
+}
+.gap-30{
+  gap: 30px;
+}
