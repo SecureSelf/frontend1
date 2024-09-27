@@ -16,12 +16,6 @@
       <>
     
         <Routes>
-          
-          {/* <Route path='/home' element={<Homemain />} />
-          <Route path='/main' element={<Loginmain/>} />
-          <Route path="/upload/:category"  element={<Uploadcard/>} />
-          <Route path="/other"  element={<Otherupload/>}/>
-          <Route path="/other-doc"  element={<Other_doc/>}/> */}
 
          <Route path='/login' element={<Login/>}/>
          <Route path='/register' element={<Register/>}/>
