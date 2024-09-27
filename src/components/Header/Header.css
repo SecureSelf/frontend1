@@ -1,0 +1,12 @@
+ ul a{
+    color:white;
+}
+ ul a:hover{
+    color:rgba(225, 225, 225, 0.5);
+}
+.active-menu{
+    border-bottom: 1px solid rgba(225, 225, 225, 0.5);  
+}
+.active-menu a{
+    color: rgba(225, 225, 225, 0.5) !important;
+}
