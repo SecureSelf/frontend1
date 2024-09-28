@@ -13,6 +13,7 @@ import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import { useContext } from "react";
 import { StoreContext } from "./store/storeContext";
 import { Navigate } from 'react-router-dom';
+import Notes from "./Pages/Notes/Notes";
 
 function App() {
   const { isLogin } = useContext(StoreContext);
@@ -25,15 +26,13 @@ function App() {
         <Route path="/forget-password" element={<ForgetPassword />} />
 
         <Route path="/" element={<Layout />}>
-          {/* <Route index element={<Homemain />} /> */}
-          
-          {/* Show protected routes only when logged in */}
           {isLogin ? (
             <>
               <Route index path="/" element={<Loginmain />} />
               <Route path="/upload/:category" element={<Uploadcard />} />
               <Route path="/other" element={<Otherupload />} />
               <Route path="/other-doc" element={<Other_doc />} />
+              <Route path="/notes" element={<Notes />} />
             </>
           ) : (
             // If logged out, redirect to home page for any other route

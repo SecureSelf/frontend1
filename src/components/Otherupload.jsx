@@ -80,7 +80,7 @@ function Otherupload() {
   };
 
   return (
-    <div className='w-full h-[100vh] bg-red-500 py-[10%] fixed' style={{ backgroundImage: `url(${bgimage})` }}>
+    <div className='w-full min-h-[100vh] bg-red-500 py-[10%]' style={{ backgroundImage: `url(${bgimage})` }}>
       <div className="max-w-lg mx-auto p-6 bg-[#ffffff] border border-red-400 shadow-md rounded-lg">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Upload a Card</h2>
 

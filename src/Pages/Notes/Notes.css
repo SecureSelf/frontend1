@@ -1,0 +1,28 @@
+.heading{
+    padding: 10px;
+    border-top-right-radius:50px;
+    border-bottom-right-radius:50px;
+    border: none;
+    cursor:context-menu;
+}
+.heading:hover{
+    background-color:rgb(211, 196, 196) !important;
+}
+.active-nodes-heading{
+    background-color:#1F2937 !important;
+    color: white;
+}
+.heading h2{
+    font-size:16px;
+    line-height: 32px;
+    letter-spacing: 0.3px;
+    margin-bottom: 0;
+}
+.addNotesBox{
+    top: 20%;
+    left: 20%;
+    background-color: #ededed;
+    max-width:30vw;
+    min-width: 500px;
+}
+
