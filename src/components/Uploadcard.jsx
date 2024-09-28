@@ -21,18 +21,19 @@ function Uploadcard() {
     }
 
     const formData = new FormData();
-    formData.append('image', imageSelected);
+    formData.append('images', imageSelected);
 
     try {
       setUploading(true); // Start loading
-
-      const response = await axios.post('http://localhost:5000/upload', formData, {
+      const storedToken = localStorage.getItem("token");
+      const response = await axios.post('http://localhost:5100/api/document/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${storedToken}`
         },
+        withCredentials: true,
       });
-
-      setImageUrl(response.data.imageUrl); // Set the uploaded image URL
+      setImageUrl(response.data[0].url); // Set the uploaded image URL
       setUploading(false); // Stop loading
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -51,12 +52,16 @@ function Uploadcard() {
       setDescription(category);
     }
 
-    const email = localStorage.getItem('email') || 'default@example.com';
-    const cardData = { category, description, imageUrl, email };
+    // const email = localStorage.getItem('email') || 'default@example.com';
+    const cardData = { category, description, imageUrl };
 
     try {
       setIsSubmitting(true); // Start submitting
-      const res = await axios.post('http://localhost:5000/create', cardData);
+      const res = await axios.post('http://localhost:5100/api/document/add-document', cardData,{
+        headers: {
+          Authorization:  `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       console.log('Card created:', res.data);
 
       // Show success notification
@@ -71,7 +76,7 @@ function Uploadcard() {
 
       // Navigate to /main after 2 seconds
       setTimeout(() => {
-        navigate('/main'); // Navigate to the main page
+        navigate('/'); // Navigate to the main page
       }, 2000);
     } catch (error) {
       console.error('Error creating card:', error);
@@ -80,7 +85,7 @@ function Uploadcard() {
   };
 
   return (
-    <div className='w-full h-[100vh] bg-red-500 py-[10%] fixed' style={{ backgroundImage: `url(${bgimage})` }}>
+    <div className='w-full min-h-[100vh] bg-red-500 py-[10%] ' style={{ backgroundImage: `url(${bgimage})` }}>
       <div className="max-w-lg mx-auto p-6 bg-[#ffffff] border border-red-400 shadow-md rounded-lg">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Upload a Card</h2>
 

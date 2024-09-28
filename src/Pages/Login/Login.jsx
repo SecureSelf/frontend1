@@ -5,7 +5,7 @@ import "./Login.css";
 import axios from "axios";
 
 const Login = () => {
-  const { url } = useContext(StoreContext);
+  const { url,setIsLogin } = useContext(StoreContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -27,7 +27,9 @@ const Login = () => {
     e.preventDefault();
     const newUrl = url + "/user/login";
 
-    axios.post(newUrl, formData)
+    axios.post(newUrl, formData,{
+      withCredentials: true, 
+    })
       .then((response) => {
 
         // Clear form after successful login
@@ -35,9 +37,9 @@ const Login = () => {
           email: "",
           password: "",
         });
-
         // If the login is successful, store the token and navigate to the homepage
         localStorage.setItem("token", response.data.data.token);
+        setIsLogin(true);
         navigate("/");
       })
       .catch((error) => {

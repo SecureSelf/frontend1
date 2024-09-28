@@ -1,10 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../img/ima.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
 import "./Header.css";
+import { StoreContext } from "../../store/storeContext";
+import Avatar from 'react-avatar';
 
 function Header() {
   const [activeMenu,setActiveMenu] = useState("home");
+  const {url,setIsLogin,isLogin,userDetails} = useContext(StoreContext);
+  const navigate = useNavigate();
+  const handleLogout = async() =>{
+    const newUrl = url + '/user/logout';
+
+    axios.get(newUrl,{
+      withCredentials: true,
+    })
+    .then((response) => {
+      localStorage.removeItem("token");
+      console.log(response);
+      setIsLogin(false);
+      console.log(isLogin)
+      navigate("/");
+    })
+    .catch((error) => {
+      console.log("An error occurred. Please try again.");
+    });
+
+  }
   return (
     <header className="bg-gray-800 text-white p-4 w-full d-flex align-items-center justify-content-between">
       <div className="nav-left">
@@ -33,7 +56,7 @@ function Header() {
         </ul>
       </div>
       <div className="nav-right d-flex">
-        <ul className="d-flex align-items-center  gap-15 mb-0">
+        {isLogin == false ? <ul className="d-flex align-items-center  gap-15 mb-0">
           <li>
              <Link to='/login'>
                  Login
@@ -44,7 +67,23 @@ function Header() {
                  Register
              </Link>
           </li>
-        </ul>
+        </ul> :  <ul className="d-flex align-items-center  gap-15 mb-0">
+        <li className="profile-logo">
+          {/* Generate avatar based on the user's name */}
+          <Avatar 
+            name={userDetails.name} 
+            size="30" 
+            round={true} 
+          />
+        </li>
+          <li>
+             <Link onClick={handleLogout}>
+                 Logout
+             </Link>
+          </li>
+        </ul>}
+        
+       
       </div>
     </header>
   );
