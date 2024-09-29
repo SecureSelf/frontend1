@@ -9,6 +9,25 @@ const StoreContextProvider = (props) => {
   const [isLogin, setIsLogin] = useState(false); 
   const [userDetails, setUserDetails] = useState({});
   const [notes, setNotes] = useState([]);
+  const [documents,setDocuments] = useState([]);
+  
+
+
+  const fetchDocuments = async () => {
+    const storedToken = localStorage.getItem("token");
+    try {
+      const response = await axios.get(url + '/document/get-documents', {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+        withCredentials: true,
+      });
+      setDocuments(response.data);
+    } catch (error) {
+      console.error("Error fetching notes:", error.response ? error.response.data : error);
+    }
+  };
+
 
   const fetchNotes = async () => {
     const storedToken = localStorage.getItem("token");
@@ -39,6 +58,7 @@ const StoreContextProvider = (props) => {
         setUserDetails({
           name: response.data.name,
           email: response.data.email,
+          login: response.data.logins
         });
         setIsLogin(true); 
       }
@@ -53,6 +73,7 @@ const StoreContextProvider = (props) => {
       if (savedToken) {
         setToken(savedToken); // Set the token in state
         await fetchUserData(); // Fetch user data
+        await fetchDocuments();
         await fetchNotes(); // Fetch notes
       }
     };
@@ -68,6 +89,10 @@ const StoreContextProvider = (props) => {
   useEffect(() => {
     // console.log('Updated notes:', notes);
   }, [notes]);
+
+  useEffect(() => {
+   
+  }, [documents]);
 
   const addNote = async (title, description) => {
     const newUrl = url + '/notes/add-notes';
@@ -124,7 +149,8 @@ const updateNote = async (notesId,category,bgcolor) => {
     setNotes, // Add notes to context,
     addNote,
     deleteNote,
-    updateNote
+    updateNote,
+    documents
   };
   
   return (

@@ -25,4 +25,8 @@
     max-width:30vw;
     min-width: 500px;
 }
-
+.notes-wrapper .btn{
+    background-color: #00c389 !important;
+    border: 0;
+    color: white;
+}

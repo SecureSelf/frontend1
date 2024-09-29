@@ -79,7 +79,7 @@ const Notes = () => {
           <div className="col-10 px-5 position-relative">
             <div className="d-flex flex-row justify-content-end mt-3"
               onClick={() => setNotesAddBox("z-3")}>
-              <button className="btn btn-primary">Add Note</button>
+              <button className="btn">Add Note</button>
             </div>
             <div className={`d-flex flex-column p-3 rounded-2 position-absolute gap-15 addNotesBox ${notesAddBox}`}>
               <div className="form-floating mt-2">
@@ -99,15 +99,13 @@ const Notes = () => {
                   className="form-control"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  rows="10"
-                  cols={8}
                   id="floatingPassword"
                   placeholder="Notes"
                 />
                 <label htmlFor="floatingPassword">Notes</label>
               </div>
               <div>
-                <button onClick={handleAddNotes} className="btn btn-primary">
+                <button onClick={handleAddNotes} className="btn ">
                   {loading ? "Saving..." : "Save"}
                 </button>
               </div>

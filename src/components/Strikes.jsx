@@ -1,28 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Calendar from 'react-calendar'; // Import calendar library
 import 'react-calendar/dist/Calendar.css'; // Optional: import pre-built styles
 import axios from 'axios'; // Assuming you use axios to fetch data
+import { StoreContext } from '../store/storeContext';
 
 const Strike = () => {
-  const [loginDates, setLoginDates] = useState([]);
-  const [highlightedDates, setHighlightedDates] = useState([]);
+  const {userDetails} = useContext(StoreContext);
 
+  const [loginDates, setLoginDates] = useState([]);
+
+  const [highlightedDates, setHighlightedDates] = useState([]);
+  
+  // setLoginDates(userDetails.logins);
   // Fetch user login details
-  useEffect(() => {
+  // useEffect(() => {
+  //   const fetchLoginData = async () => {
+  //     try {
+  //       // // Fetch login dates from the backend API
+  //       // const response = await axios.get('/api/user-logins'); 
+  //       setLoginDates(userDetails.logins);
+  //       // Highlight login dates in the calendar
+  //       const highlighted = response.data.map(login => new Date(login.loginDate));
+  //       setHighlightedDates(highlighted);
+  //     } catch (error) {
+  //       console.error('Error fetching login data:', error);
+  //     }
+  //   };
+  //   fetchLoginData();
+  // }, []);
+
+  useEffect(async ()=>{
     const fetchLoginData = async () => {
-      try {
-        // Fetch login dates from the backend API
-        const response = await axios.get('/api/user-logins'); 
-        setLoginDates(response.data);
-        // Highlight login dates in the calendar
-        const highlighted = response.data.map(login => new Date(login.loginDate));
-        setHighlightedDates(highlighted);
-      } catch (error) {
-        console.error('Error fetching login data:', error);
-      }
-    };
-    fetchLoginData();
-  }, []);
+      const highlighted = userDetails.logins.map(login => new Date(login.loginDate));
+      setHighlightedDates(highlighted);
+    }
+    await fetchLoginData();
+  },[])
 
   // Highlight the dates on the calendar
   const tileContent = ({ date, view }) => {
