@@ -4,11 +4,10 @@
   padding: 10px;
   border-radius: 8px;
   transition: all 0.3s ease;
-  margin-bottom: 20px; /* To ensure space below for the palette */
-  width: 300px; /* Fixed width for all notes */
-  height: auto; /* Allow height to be determined by content */
-  min-height: 50px; /* Minimum height for smaller notes */
-  overflow: auto; /* Scroll if content exceeds max height */
+  margin-bottom: 20px;
+  width: 300px;
+  min-height: 50px;
+  /* overflow: auto; This can stay, but it won't affect the palette anymore */
 }
 
 .notesbox-wrapper:hover {
@@ -17,40 +16,36 @@
 
 .notes-icons {
   position: absolute;
-  margin-top: 20px;
   bottom: 10px;
   right: 10px;
-  display: none; /* Initially hidden */
+  display: none;
 }
 
 .notesbox-wrapper:hover .notes-icons {
-  display: flex; /* Show icons on hover */
+  display: flex;
   gap: 15px;
 }
 
 .notes-icons svg {
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   color: #333;
 }
 
 .notes-icons svg:hover {
-  color: #007bff; /* Icon hover color */
+  color: #007bff;
 }
 
-/* Color palette should be positioned below the notes box */
 .color-palette {
   position: absolute;
-  top: 100%; /* Moves it directly below the note box */
-  left: 0;
-  z-index: 2; /* Ensure it is on top when shown */
+  z-index: 2;
   display: flex;
   gap: 10px;
-  margin-top: 5px;
   background-color: white;
   padding: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
+  margin-top: 10px; /* Ensure space between the palette and the note box */
 }
 
 .color-button {
@@ -65,7 +60,7 @@
 }
 
 .color-button:hover {
-  opacity: 0.8; /* Make buttons slightly transparent on hover */
+  opacity: 0.8;
 }
 
 .hidden {

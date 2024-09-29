@@ -99,6 +99,21 @@ const deleteNote = async (noteId) => {
     }
 };
 
+const updateNote = async (notesId,category,bgcolor) => {
+    const newUrl = url + `/notes/update-notes/${notesId}`;
+    try {
+        await axios.put(newUrl, {category,bgcolor},{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            withCredentials: true,
+        });
+        await fetchNotes(); // Fetch updated notes after deletion
+    } catch (error) {
+        console.error("Error deleting note:", error);
+    }
+};
+
   const ContextValue = {
     url,
     isLogin,
@@ -109,6 +124,7 @@ const deleteNote = async (noteId) => {
     setNotes, // Add notes to context,
     addNote,
     deleteNote,
+    updateNote
   };
   
   return (

@@ -29,11 +29,11 @@ function Header() {
 
   }
   return (
-    <header className="bg-gray-800 text-white p-4 w-full d-flex align-items-center justify-content-between">
+    <header className="bg-gray-800 text-white p-2 w-full d-flex align-items-center justify-content-between">
       <div className="nav-left">
         <div className="d-flex align-items-center">
-          <img src={logo} alt="Website Logo" className="h-10 w-10" />
-          <span className="text-xl font-bold ml-[50px] ">Secure-Self</span>
+          <img src="./src/img/website logo.png" alt="Website Logo" className="website-logo" />
+          <span className="text-xl font-bold ">Secure-Self</span>
         </div>
       </div>
       <div className="nav-middle ml-[-30vw]">
@@ -55,7 +55,7 @@ function Header() {
           </li>
         </ul>
       </div>
-      <div className="nav-right d-flex">
+      <div className="nav-right d-flex mr-[30px]">
         {isLogin == false ? <ul className="d-flex align-items-center  gap-15 mb-0">
           <li>
              <Link to='/login'>

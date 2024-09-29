@@ -3,6 +3,9 @@ import { StoreContext } from "../../store/storeContext";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
+import { FaEnvelope } from "react-icons/fa";
+import { MdOutlineMail } from "react-icons/md";
+import { FiLock } from "react-icons/fi";
 
 const Login = () => {
   const { url,setIsLogin } = useContext(StoreContext);
@@ -55,15 +58,24 @@ const Login = () => {
   };
 
   return (
-    <div className="login-wrapper background-gray">
-      <div className="mt-5">
+    <div className="login-section bg-[#f3f4f6]">
+    <div className="login-upper-part ">
+       <img className="login-logo" src="./src/img/website logo.png" alt="logo" />
+       <h1>SecureSelf</h1>
+       <h4>Secure your digital identity</h4>
+    </div>
+    <div className="login-wrapper">
+      <div className="mt-3">
         <h2 className="mb-4">Login</h2>
+        <p className="text-[#777777]">Enter your credential to access you account</p>
         <form onSubmit={handleSubmit}>
           {/* Email field */}
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+          <div className="mb-3 d-flex flex-column">
+            <label htmlFor="email" className="form-label text-start">
               Email
             </label>
+            <div className="d-flex input-box">
+            <MdOutlineMail className="fs-4"/>
             <input
               type="email"
               className={`form-control`}
@@ -73,13 +85,17 @@ const Login = () => {
               onChange={handleChange}
               placeholder="Enter your email"
             />
+            </div>
+            
           </div>
 
           {/* Password field */}
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+          <div className="mb-3 d-flex flex-column">
+            <label htmlFor="email" className="form-label text-start">
               Password
             </label>
+            <div className="d-flex input-box">
+            <FiLock className="fs-4"/>
             <input
               type="password"
               className={`form-control`}
@@ -89,6 +105,8 @@ const Login = () => {
               onChange={handleChange}
               placeholder="Enter your password"
             />
+            </div>
+            
           </div>
           {isError && <div className="error-handling">{error}</div>}
 
@@ -98,11 +116,15 @@ const Login = () => {
           </div>
 
           {/* Submit button */}
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn">
             Login
           </button>
         </form>
       </div>
+    </div>
+    <div className="login-lower-part">
+       <h5>Don't have an account? <Link to='/register'>Sign up</Link></h5>
+    </div>
     </div>
   );
 };

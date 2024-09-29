@@ -30,12 +30,18 @@ const Notes = () => {
       setNotesAddBox("z-n1");
   };
 
-  const filteredNotes = notes.filter(note => {
-    if (active === "Notes") return !note.archived; // Adjust based on your note structure
-    if (active === "Archieve") return note.archived;
-    if (active === "Trash") return note.deleted; // Example property
-    return true;
-  });
+ const filteredNotes = notes.filter(note => {
+  if (active === "Notes") {
+    return note.category === "normal"; // Show only normal notes
+  } else if (active === "Archieve") {
+    return note.category === "archieve"; // Show only archived notes
+  } else if (active === "Trash") {
+    return note.category === "trash"; // Show only trashed notes
+  }
+  return true; // Default case (return all notes if no match)
+});
+
+  
 
   return (
     <>
@@ -118,6 +124,7 @@ const Notes = () => {
                     title={item.title} 
                     description={item.description} 
                     noteId={item._id} 
+                    category={item.category}
                   />
                 ))}
               </div>
