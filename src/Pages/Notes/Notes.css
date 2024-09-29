@@ -1,32 +1,132 @@
-.heading{
+/* General Styles */
+.heading {
     padding: 10px;
-    border-top-right-radius:50px;
-    border-bottom-right-radius:50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
     border: none;
-    cursor:context-menu;
-}
-.heading:hover{
-    background-color:rgb(211, 196, 196) !important;
-}
-.active-nodes-heading{
-    background-color:#1F2937 !important;
+    cursor: context-menu;
+  }
+  
+  .heading:hover {
+    background-color: rgb(211, 196, 196) !important;
+  }
+  
+  .active-nodes-heading {
+    background-color: #1F2937 !important;
     color: white;
-}
-.heading h2{
-    font-size:16px;
+  }
+  
+  .heading h2 {
+    font-size: 16px;
     line-height: 32px;
     letter-spacing: 0.3px;
     margin-bottom: 0;
-}
-.addNotesBox{
+  }
+  
+  .addNotesBox {
     top: 20%;
     left: 20%;
     background-color: #ededed;
-    max-width:30vw;
+    max-width: 30vw;
     min-width: 500px;
-}
-.notes-wrapper .btn{
+  }
+  
+  .notes-wrapper .btn {
     background-color: #00c389 !important;
     border: 0;
     color: white;
-}
+  }
+  
+  /* Responsive Styles */
+  
+  /* For screens larger than 768px (tablets and up) */
+  @media (min-width: 768px) {
+    .col-2 {
+      flex: 0 0 20%; /* Sidebar width */
+    }
+  
+    .col-10 {
+      flex: 0 0 80%; /* Main content width */
+    }
+  
+    .addNotesBox {
+      max-width: 30vw;
+      min-width: 500px;
+    }
+  
+    .notes-wrapper .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  }
+  
+  /* For screens smaller than 768px (mobile phones) */
+  @media (max-width: 768px) {
+    .col-2, .col-10 {
+      flex: 0 0 100%; /* Full width for both sidebar and main content */
+    }
+  
+    .addNotesBox {
+      top: 10%;
+      left: 5%;
+      right: 5%;
+      max-width: 90vw;
+    }
+  
+    .notes-wrapper .btn {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+    }
+  
+    .heading h2 {
+      font-size: 14px;
+      line-height: 24px;
+    }
+  
+    .heading {
+      padding: 8px;
+      border-radius: 25px; /* Simplified border radius */
+    }
+  
+    .notes-wrapper {
+      padding: 0 10px;
+    }
+  
+    .notes-wrapper .col-12 {
+      justify-content: center;
+    }
+  
+    .d-flex {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .gap-15 {
+      gap: 10px;
+    }
+  }
+  
+  /* For extra small screens (below 576px) */
+  @media (max-width: 576px) {
+    .heading {
+      padding: 6px;
+    }
+  
+    .heading h2 {
+      font-size: 12px;
+    }
+  
+    .notes-wrapper .btn {
+      padding: 5px;
+      font-size: 12px;
+    }
+  
+    .addNotesBox {
+      top: 5%;
+      left: 2%;
+      right: 2%;
+      max-width: 95vw;
+    }
+  }
+  
