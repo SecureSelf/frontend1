@@ -44,6 +44,8 @@ function Homemain() {
           <img src={exampleImage} alt="Secure Self" className="w-full h-[550px]" />
         </div>
       </div>
+
+    
     </div>
   );
 }

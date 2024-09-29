@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import bgimage from '../img/bg.webp'
+import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate and useParams
+import bgimage from '../img/bg.webp';
 
 function Other_doc() {
   const [imageSelected, setImageSelected] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState(''); // State for category
   const [uploading, setUploading] = useState(false);
+  const [category, setCategory] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false); // For tracking submit state
   const navigate = useNavigate(); // Initialize useNavigate
+  // Get category from the URL parameters
 
   const uploadImage = async () => {
     if (!imageSelected) {
@@ -21,18 +22,19 @@ function Other_doc() {
     }
 
     const formData = new FormData();
-    formData.append('image', imageSelected);
+    formData.append('images', imageSelected);
 
     try {
       setUploading(true); // Start loading
-
-      const response = await axios.post('http://localhost:5000/upload', formData, {
+      const storedToken = localStorage.getItem("token");
+      const response = await axios.post('http://localhost:5100/api/document/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${storedToken}`,
         },
+        withCredentials: true,
       });
-
-      setImageUrl(response.data.imageUrl); // Set the uploaded image URL
+      setImageUrl(response.data[0].url); // Set the uploaded image URL
       setUploading(false); // Stop loading
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -43,7 +45,7 @@ function Other_doc() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!imageUrl || !category) {
-      alert('Please upload an image and select a category');
+      alert('Please upload an image and ensure the category is specified');
       return;
     }
 
@@ -51,12 +53,15 @@ function Other_doc() {
       setDescription(category);
     }
 
-    const email = localStorage.getItem('email') || 'default@example.com';
-    const cardData = { category, description, imageUrl, email };
+    const cardData = { category, description, imageUrl };
 
     try {
       setIsSubmitting(true); // Start submitting
-      const res = await axios.post('http://localhost:5000/create', cardData);
+      const res = await axios.post('http://localhost:5100/api/document/add-document', cardData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       console.log('Card created:', res.data);
 
       // Show success notification
@@ -66,12 +71,11 @@ function Other_doc() {
       setDescription('');
       setImageSelected(null);
       setImageUrl('');
-      setCategory(''); // Reset category
       setIsSubmitting(false); // Stop submitting
 
       // Navigate to /main after 2 seconds
       setTimeout(() => {
-        navigate('/main'); // Navigate to the main page
+        navigate('/'); // Navigate to the main page
       }, 2000);
     } catch (error) {
       console.error('Error creating card:', error);
@@ -85,18 +89,19 @@ function Other_doc() {
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Upload a Card</h2>
 
         <form onSubmit={handleSubmit}>
-          {/* Category Selection */}
-          <div className="mb-4">
-            <label htmlFor="category" className="block text-[#1d3a55] text-lg font-medium mb-2">Select Category</label>
-            <input
-              type="text"
-              id="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              placeholder="Enter a description"
-              className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+       
+<div className="mb-4">
+<label htmlFor="category" className="block text-[#1d3a55] text-lg font-medium mb-2">Select Category</label>
+<input
+  type="text"
+  id="category"
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+  placeholder="Enter a description"
+  className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+/>
+</div>
+
 
           {/* Description Input */}
           <div className="mb-4">
@@ -106,7 +111,7 @@ function Other_doc() {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter a description"
+              placeholder={`Enter a description for ${category}`}
               className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -165,5 +170,16 @@ function Other_doc() {
   );
 }
 
+
 export default Other_doc;
+
+
+
+
+
+
+
+
+
+
 

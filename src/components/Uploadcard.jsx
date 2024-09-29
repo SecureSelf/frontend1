@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import bgimage from '../img/bg.webp'
+import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate and useParams
+import bgimage from '../img/bg.webp';
 
 function Uploadcard() {
   const [imageSelected, setImageSelected] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState(''); // State for category
   const [uploading, setUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); // For tracking submit state
   const navigate = useNavigate(); // Initialize useNavigate
+  const { category } = useParams(); // Get category from the URL parameters
 
   const uploadImage = async () => {
     if (!imageSelected) {
@@ -29,7 +29,7 @@ function Uploadcard() {
       const response = await axios.post('http://localhost:5100/api/document/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${storedToken}`
+          Authorization: `Bearer ${storedToken}`,
         },
         withCredentials: true,
       });
@@ -44,7 +44,7 @@ function Uploadcard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!imageUrl || !category) {
-      alert('Please upload an image and select a category');
+      alert('Please upload an image and ensure the category is specified');
       return;
     }
 
@@ -52,15 +52,14 @@ function Uploadcard() {
       setDescription(category);
     }
 
-    // const email = localStorage.getItem('email') || 'default@example.com';
     const cardData = { category, description, imageUrl };
 
     try {
       setIsSubmitting(true); // Start submitting
-      const res = await axios.post('http://localhost:5100/api/document/add-document', cardData,{
+      const res = await axios.post('http://localhost:5100/api/document/add-document', cardData, {
         headers: {
-          Authorization:  `Bearer ${localStorage.getItem('token')}`
-        }
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       console.log('Card created:', res.data);
 
@@ -71,7 +70,6 @@ function Uploadcard() {
       setDescription('');
       setImageSelected(null);
       setImageUrl('');
-      setCategory(''); // Reset category
       setIsSubmitting(false); // Stop submitting
 
       // Navigate to /main after 2 seconds
@@ -85,30 +83,11 @@ function Uploadcard() {
   };
 
   return (
-    <div className='w-full min-h-[100vh] bg-red-500 py-[10%] ' style={{ backgroundImage: `url(${bgimage})` }}>
+    <div className='w-full min-h-[100vh] bg-red-500 py-[10%]' style={{ backgroundImage: `url(${bgimage})` }}>
       <div className="max-w-lg mx-auto p-6 bg-[#ffffff] border border-red-400 shadow-md rounded-lg">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Upload a Card</h2>
 
         <form onSubmit={handleSubmit}>
-          {/* Category Selection */}
-          <div className="mb-4">
-            <label htmlFor="category" className="block text-[#1d3a55] text-lg font-medium mb-2">Select Category</label>
-            <select
-              id="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            >
-              <option value="">-- Select a Category --</option>
-              <option value="government">Government</option>
-              <option value="health">Health</option>
-              <option value="education">Education</option>
-              <option value="public">Public</option>
-              <option value="travel">Travel</option>
-            </select>
-          </div>
-
           {/* Description Input */}
           <div className="mb-4">
             <label htmlFor="description" className="block text-[#1d3a55] text-lg font-medium mb-2">Description</label>
@@ -117,7 +96,7 @@ function Uploadcard() {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter a description"
+              placeholder={`Enter a description for ${category}`}
               className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -177,6 +156,3 @@ function Uploadcard() {
 }
 
 export default Uploadcard;
-
-
-// export default Uploadcard
