@@ -6,7 +6,8 @@ import axios from "axios";
 import { FaEnvelope } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
 import { FiLock } from "react-icons/fi";
-
+import bgforlogin from '../../img/bgforlogin.webp'
+import { styles } from "../../styles";
 const Login = () => {
   const { url,setIsLogin } = useContext(StoreContext);
   const navigate = useNavigate();
@@ -58,14 +59,18 @@ const Login = () => {
   };
 
   return (
-    <div className="login-section bg-[#f3f4f6]">
+    <div className="login-section bg-[#f3f4f6] bg-cover pt-[30px]"
+    style={{ backgroundImage: `url(${bgforlogin})` }}>
     <div className="login-upper-part ">
-       <img className="login-logo" src="./src/img/website logo.png" alt="logo" />
-       <h1>SecureSelf</h1>
+    <div className=" mb-[-30px]">
+    <img className="login-logo" src="./src/img/website logo.png" alt="logo" />
+    </div>
+      
+       <h1 className="text-white" >SecureSelf</h1>
        <h4>Secure your digital identity</h4>
     </div>
-    <div className="login-wrapper">
-      <div className="mt-3">
+    <div className="login-wrapper ">
+      <div className="mt-3 border">
         <h2 className="mb-4">Login</h2>
         <p className="text-[#777777]">Enter your credential to access you account</p>
         <form onSubmit={handleSubmit}>
@@ -123,7 +128,7 @@ const Login = () => {
       </div>
     </div>
     <div className="login-lower-part">
-       <h5>Don't have an account? <Link to='/register'>Sign up</Link></h5>
+       <h5 className="text-white">Don't have an account? <Link to='/register'>Sign up</Link></h5>
     </div>
     </div>
   );

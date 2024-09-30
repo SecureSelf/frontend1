@@ -37,7 +37,7 @@ const Carddocument = ({ imageUrls }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {imageUrls.map((url, index) => (
-        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg">
+        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg border-black">
           {/* Image */}
           <img 
             src={url} 

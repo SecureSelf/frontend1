@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar'; // Import calendar library
 import 'react-calendar/dist/Calendar.css'; // Optional: import pre-built styles
 import axios from 'axios'; // Assuming you use axios to fetch data
-
+import bgforlogin from '../img/bgforlogin.webp'
 const Strike = () => {
   const [loginDates, setLoginDates] = useState([]);
   const [highlightedDates, setHighlightedDates] = useState([]);
@@ -33,14 +33,18 @@ const Strike = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-semibold text-teal-600 mb-8">User Login Calendar</h1>
+    <div className='bg-cover'  style={{ backgroundImage: `url(${bgforlogin})` }}>
+    <div>
+    <h1 className="text-3xl text-center pt-10 font-semibold text-[#d1b930] mb-10 ">User Login Calendar</h1>
+    </div>
+    <div className="flex flex-col items-center justify-center  pb-10">
       <div className="p-4 bg-white rounded-lg shadow-lg">
         <Calendar
           tileContent={tileContent} // Highlight login dates
           className="react-calendar p-4"
         />
       </div>
+    </div>
     </div>
   );
 };
