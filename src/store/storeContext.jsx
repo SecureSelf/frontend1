@@ -9,7 +9,25 @@ const StoreContextProvider = (props) => {
   const [isLogin, setIsLogin] = useState(false); 
   const [userDetails, setUserDetails] = useState({});
   const [notes, setNotes] = useState([]);
+  const [documents, setDocuments] = useState([]);
 
+  // Fetch documents from API
+  const fetchDocuments = async () => {
+    const storedToken = localStorage.getItem("token");
+    try {
+      const response = await axios.get(url + '/document/get-documents', {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+        withCredentials: true,
+      });
+      setDocuments(response.data);
+    } catch (error) {
+      console.error("Error fetching documents:", error.response ? error.response.data : error);
+    }
+  };
+
+  // Fetch notes from API
   const fetchNotes = async () => {
     const storedToken = localStorage.getItem("token");
     try {
@@ -25,6 +43,7 @@ const StoreContextProvider = (props) => {
     }
   };
 
+  // Fetch user data from API
   const fetchUserData = async () => {
     try {
       const storedToken = localStorage.getItem("token");
@@ -39,6 +58,7 @@ const StoreContextProvider = (props) => {
         setUserDetails({
           name: response.data.name,
           email: response.data.email,
+          login: response.data.logins
         });
         setIsLogin(true); 
       }
@@ -47,12 +67,14 @@ const StoreContextProvider = (props) => {
     }
   };
 
+  // useEffect to load data when component mounts
   useEffect(() => {
     const loadData = async () => {
       const savedToken = localStorage.getItem("token");
       if (savedToken) {
         setToken(savedToken); // Set the token in state
         await fetchUserData(); // Fetch user data
+        await fetchDocuments(); // Fetch documents
         await fetchNotes(); // Fetch notes
       }
     };
@@ -69,51 +91,60 @@ const StoreContextProvider = (props) => {
     // console.log('Updated notes:', notes);
   }, [notes]);
 
+  // Optional: Log documents whenever they change
+  useEffect(() => {
+    // console.log('Updated documents:', documents);
+  }, [documents]);
+
+  // Add a new note
   const addNote = async (title, description) => {
     const newUrl = url + '/notes/add-notes';
     try {
-        const response = await axios.post(newUrl, { title, description }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            withCredentials: true,
-        });
-        await fetchNotes(); // Fetch updated notes after adding
+      const response = await axios.post(newUrl, { title, description }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        withCredentials: true,
+      });
+      await fetchNotes(); // Fetch updated notes after adding
     } catch (error) {
-        console.error("Error adding note:", error);
+      console.error("Error adding note:", error);
     }
-};
+  };
 
-const deleteNote = async (noteId) => {
+  // Delete a note
+  const deleteNote = async (noteId) => {
     const newUrl = url + `/notes/delete-notes/${noteId}`;
     try {
-        await axios.delete(newUrl, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            withCredentials: true,
-        });
-        await fetchNotes(); // Fetch updated notes after deletion
+      await axios.delete(newUrl, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        withCredentials: true,
+      });
+      await fetchNotes(); // Fetch updated notes after deletion
     } catch (error) {
-        console.error("Error deleting note:", error);
+      console.error("Error deleting note:", error);
     }
-};
+  };
 
-const updateNote = async (notesId,category,bgcolor) => {
+  // Update a note
+  const updateNote = async (notesId, category, bgcolor) => {
     const newUrl = url + `/notes/update-notes/${notesId}`;
     try {
-        await axios.put(newUrl, {category,bgcolor},{
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            withCredentials: true,
-        });
-        await fetchNotes(); // Fetch updated notes after deletion
+      await axios.put(newUrl, { category, bgcolor }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        withCredentials: true,
+      });
+      await fetchNotes(); // Fetch updated notes after deletion
     } catch (error) {
-        console.error("Error deleting note:", error);
+      console.error("Error updating note:", error);
     }
-};
+  };
 
+  // Context value to be passed to other components
   const ContextValue = {
     url,
     isLogin,
@@ -124,7 +155,8 @@ const updateNote = async (notesId,category,bgcolor) => {
     setNotes, // Add notes to context,
     addNote,
     deleteNote,
-    updateNote
+    updateNote,
+    documents
   };
   
   return (

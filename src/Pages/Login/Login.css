@@ -48,7 +48,7 @@ h2 {
 }
 
 /* Submit button styling */
-.btn {
+.login-section .btn {
   background-color: #00c389 !important; /* Green button */
   color: white !important;
   padding: 12px;
