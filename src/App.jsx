@@ -16,9 +16,10 @@ import { Navigate } from 'react-router-dom';
 import Notes from "./Pages/Notes/Notes";
 import Strike from "./components/Strikes";
 import Documentupload from "./components/Documentupload";
+import ExpertMain from "./components/ExpertMain";
 function App() {
   // const { isLogin } = useContext(StoreContext);
-  const isLogin = true
+  const isLogin = false
   return (
     <>
       <Routes>
@@ -37,6 +38,7 @@ function App() {
               <Route path="/notes" element={<Notes />} />
               <Route path="/strikes" element={<Strike />} />
               <Route path="/document" element={<Documentupload />} />
+              <Route path="/contact" element={<ExpertMain />} />
               
             </>
           ) : (

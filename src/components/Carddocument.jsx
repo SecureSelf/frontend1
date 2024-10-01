@@ -39,46 +39,46 @@ const Carddocument = ({ imageUrls }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-<<<<<<< HEAD
-      {imageUrls.map((url, index) => (
-        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg border-black">
-=======
-      {documents.map((item, index) => (
-        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg">
->>>>>>> 6406ae90d10c912403607c65157137ec0e19fd79
-          {/* Image */}
-          <img 
-            src={item.imageUrl} 
-            alt={`image-${index}`} 
-            className="w-full h-48 object-cover"
-          />
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
 
-          {/* Like and Download Icons */}
-          <div className="absolute top-2 left-2 flex space-x-2">
-            {/* Like Button */}
-            <button 
-              onClick={() => toggleLike(index)} 
-              className="bg-white p-2 rounded-full shadow-lg"
-            >
-              {likedImages.includes(index) ? (
-                <FaHeart className="text-red-500" />
-              ) : (
-                <FaRegHeart className="text-gray-500" />
-              )}
-            </button>
+{documents.map((item, index) => (
+  <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg border-black">
 
-            {/* Download Button */}
-            <button 
-              onClick={() => handleDownload(item.imageUrl)} // Pass the image URL to download
-              className="bg-white p-2 rounded-full shadow-lg"
-            >
-               <FaDownload className="text-teal-500" />
-            </button>
-          </div>
-        </div>
-      ))}
+    {/* Image */}
+    <img 
+      src={item.imageUrl} 
+      alt={`image-${index}`} 
+      className="w-full h-48 object-cover"
+    />
+
+    {/* Like and Download Icons */}
+    <div className="absolute top-2 left-2 flex space-x-2">
+      {/* Like Button */}
+      <button 
+        onClick={() => toggleLike(index)} 
+        className="bg-white p-2 rounded-full shadow-lg"
+      >
+        {likedImages.includes(index) ? (
+          <FaHeart className="text-red-500" />
+        ) : (
+          <FaRegHeart className="text-gray-500" />
+        )}
+      </button>
+
+      {/* Download Button */}
+      <button 
+        onClick={() => handleDownload(item.imageUrl)} // Pass the image URL to download
+        className="bg-white p-2 rounded-full shadow-lg"
+      >
+         <FaDownload className="text-teal-500" />
+      </button>
     </div>
+
+  </div>
+))}
+
+</div>
+
   );
 };
 

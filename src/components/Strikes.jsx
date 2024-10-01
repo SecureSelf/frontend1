@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import Calendar from 'react-calendar'; // Import calendar library
 import 'react-calendar/dist/Calendar.css'; // Optional: import pre-built styles
 import axios from 'axios'; // Assuming you use axios to fetch data
-<<<<<<< HEAD
+
 import bgforlogin from '../img/bgforlogin.webp'
-=======
+
 import { StoreContext } from '../store/storeContext';
 
->>>>>>> 6406ae90d10c912403607c65157137ec0e19fd79
+
 const Strike = () => {
   const {userDetails} = useContext(StoreContext);
 

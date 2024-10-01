@@ -128,7 +128,7 @@ const Login = () => {
       </div>
     </div>
     <div className="login-lower-part">
-       <h5 className="text-white">Don't have an account? <Link to='/register'>Sign up</Link></h5>
+       <h5 className="text-white">Don`t have an account? <Link to='/register'>Sign up</Link></h5>
     </div>
     </div>
   );
