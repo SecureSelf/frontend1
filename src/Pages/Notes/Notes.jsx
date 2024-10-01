@@ -7,11 +7,10 @@ import { RxCross2 } from "react-icons/rx";
 import NotesBox from "../../components/NotesBox/NotesBox";
 
 import { StoreContext } from "../../store/storeContext";
-import axios from "axios";
 
 const Notes = () => {
   const [active, setActive] = useState("Notes");
-  const [notesAddBox, setNotesAddBox] = useState("z-n1");
+  const [notesAddBox, setNotesAddBox] = useState("z-n1 d-none");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -84,9 +83,10 @@ const Notes = () => {
           </div>
           <div className="col-10 px-5 position-relative">
             <div className="d-flex flex-row justify-content-end mt-3">
-              <button onClick={() => setNotesAddBox("z-3")} className="btn">Add Note</button>
+              <button onClick={() => setNotesAddBox("z-3 d-flex")} className="btn">Add Note</button>
             </div>
-            <div className={`d-flex flex-column p-3 rounded-2 position-absolute gap-15 addNotesBox ${notesAddBox}`}>
+
+            <div className={` flex-column p-3 rounded-2 position-absolute gap-15 addNotesBox ${notesAddBox}`}>
               <div className="form-floating mt-2">
                 <input
                   type="text"
@@ -114,10 +114,11 @@ const Notes = () => {
                   {loading ? "Saving..." : "Save"}
                 </button>
               </div>
-              <div onClick={() => setNotesAddBox("z-n1")} className="position-absolute top-1 end-1">
+              <div onClick={() => setNotesAddBox("z-n1 d-none")} className="position-absolute top-1 end-1">
                 <RxCross2 />
               </div>
             </div>
+
             <div className="row">
               <div className="col-12 d-flex flex-wrap gap-15 mt-3">
                 {filteredNotes.map(item => (

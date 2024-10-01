@@ -5,7 +5,8 @@
   border-radius: 8px;
   transition: all 0.3s ease;
   margin-bottom: 20px;
-  width: 300px;
+  width: 90%;
+  max-width: 300px;
   min-height: 50px;
   /* overflow: auto; This can stay, but it won't affect the palette anymore */
 }
@@ -65,4 +66,31 @@
 
 .hidden {
   display: none;
+}
+
+@media (max-width: 859px) {
+  .heading{
+    border: none;
+    border-radius: none;
+    border-top-left-radius:0px;
+    border-bottom-left-radius:0px;
+  }
+  .heading > h2 {
+      display: none;
+  }
+  
+}
+@media (max-width: 450px) {
+  .heading{
+    border: 1px solid inherit;
+    border-radius:200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius:0px;
+    border-bottom-left-radius:0px;
+    padding: 10px;
+    width:max-content;
+  }
+  
 }
