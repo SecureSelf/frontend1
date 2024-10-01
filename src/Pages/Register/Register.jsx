@@ -1,8 +1,13 @@
 import React, { useContext, useState } from "react";
 import { StoreContext } from "../../store/storeContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import './Register.css'
+import "./Register.css";
+import "../Login/Login.css";
+import { MdOutlineDomainVerification, MdOutlineMail } from "react-icons/md";
+import { FiLock } from "react-icons/fi";
+import bgforlogin from "../../img/bgforlogin.webp";
+import { LuUser2 } from "react-icons/lu";
 
 const Register = () => {
   const { url } = useContext(StoreContext);
@@ -29,15 +34,16 @@ const Register = () => {
 
   // Password strength validation
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     return passwordRegex.test(password);
   };
 
   // Send OTP to the user's email
   const handleSendOtp = async (e) => {
     e.preventDefault();
-    
-    const newUrl = url + '/user/send-otp';
+
+    const newUrl = url + "/user/send-otp";
     try {
       const response = await axios.post(newUrl, { email: formData.email });
       console.log("OTP sent:", response.data);
@@ -56,12 +62,12 @@ const Register = () => {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
 
-    const newUrl = url + '/user/verify-email';
+    const newUrl = url + "/user/verify-email";
     try {
       const response = await axios.post(newUrl, { email: formData.email, otp });
       console.log("OTP verified:", response.data);
       setOtp("");
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
       let newErrors = {};
       newErrors.otp = "Otp is incorrect";
@@ -105,119 +111,181 @@ const Register = () => {
   };
 
   return (
-    <div className="register-wrapper background-gray">
-      <div className="mt-5">
-        <h2 className="mb-4">Register</h2>
-        <form onSubmit={handleSubmit}>
-          {/* Name field */}
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              className={`form-control ${errors.name ? "is-invalid" : ""}`}
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your name"
-            />
-            {errors.name && <div className="invalid-feedback">{errors.name}</div>}
-          </div>
-
-          {/* Email field */}
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              className={`form-control ${errors.email ? "is-invalid" : ""}`}
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-            />
-            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-          </div>
-
-          {/* Password field */}
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-            />
-            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-          </div>
-
-          {/* Confirm password field */}
-          <div className="mb-3">
-            <label htmlFor="confirmPassword" className="form-label">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              className={`form-control ${errors.confirmPassword ? "is-invalid" : ""}`}
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Confirm your password"
-            />
-            {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
-          </div>
-
-          {/* Submit button */}
-          {!isOtpSent && (
-            <button type="submit" className="btn btn-primary">
-              Register
-            </button>
-          )}
-
-          {/* Send OTP button */}
-          {isOtpSent && (
-            <button onClick={handleSendOtp} className="btn btn-primary mb-3">
-              Send OTP
-            </button>
-          )}
-
-          {/* OTP input field */}
-          {isOtpSent && (
-            <>
-              <div className="mb-3">
-                <label htmlFor="otp" className="form-label">
-                  OTP
-                </label>
+    <div
+      className="login-section bg-[#f3f4f6] bg-cover py-[30px] "
+      style={{ backgroundImage: `url(${bgforlogin})` }}
+    >
+      <div className="login-upper-part ">
+        <div className=" mb-[-30px]">
+          <img
+            className="login-logo"
+            src="./src/img/website logo.png"
+            alt="logo"
+          />
+        </div>
+        <h1 className="text-white">SecureSelf</h1>
+        <h4>Secure your digital identity</h4>
+      </div>
+      <div className="login-wrapper">
+        <div className="mt-3 border">
+          <h2 className="mb-4">Register</h2>
+          <p className="text-[#777777]">Enter your credential to register</p>
+          <form onSubmit={handleSubmit}>
+            {/* Name field */}
+            <div className="mb-3 d-flex flex-column">
+              <label htmlFor="email" className="form-label text-start">
+                Name
+              </label>
+              <div className="d-flex input-box">
+                <LuUser2 className="fs-4" />
                 <input
-                  type="text"
-                  className={`form-control ${errors.otp ? "is-invalid" : ""}`}
-                  id="otp"
-                  name="otp"
-                  value={otp}
-                  onChange={handleOtpChange}
-                  placeholder="Enter the OTP"
-                  required
+                  type="name"
+                  className={`form-control ps-2`}
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your name"
                 />
-                {errors.otp && <div className="invalid-feedback">{errors.otp}</div>}
               </div>
+            </div>
 
-              {/* Verify OTP button */}
-              <button onClick={handleVerifyOtp} className="btn btn-primary">
-                Verify OTP
+            {/* Email field */}
+            <div className="mb-3 d-flex flex-column">
+              <label htmlFor="email" className="form-label text-start">
+                Email
+              </label>
+              <div className="d-flex input-box">
+                <MdOutlineMail className="fs-4" />
+                <input
+                  type="email"
+                  className={`form-control ps-2 ${
+                    errors.password ? "is-invalid" : ""
+                  }`}
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                />
+              </div>
+            </div>
+
+            {/* Password field */}
+            <div className="mb-3 d-flex flex-column">
+              <label htmlFor="password" className="form-label text-start">
+                Password
+              </label>
+              <div
+                className={`d-flex input-box ${
+                  errors.password ? "border border-danger" : ""
+                }`}
+              >
+                <FiLock className="fs-4" />
+                <input
+                  type="password"
+                  className={`form-control ps-2 `}
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                />
+              </div>
+            </div>
+            {errors.password && (
+              <div className="error-handling text-start mb-2 display-flex flex-wrap">
+                {errors.password}
+              </div>
+            )}
+
+            {/* Confirm password field */}
+            <div className="mb-3 d-flex flex-column">
+              <label htmlFor="password" className="form-label text-start">
+                Confirm Password
+              </label>
+              <div
+                className={`d-flex input-box ${
+                  errors.confirmPassword ? "border border-danger" : ""
+                }`}
+              >
+                <FiLock className="fs-4" />
+                <input
+                  type="password"
+                  className={`form-control ps-2 
+                }`}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Enter your confirm password"
+                />
+              </div>
+            </div>
+            {errors.confirmPassword && (
+              <div className="error-handling text-start mb-2">
+                {errors.confirmPassword}
+              </div>
+            )}
+
+            {/* Submit button */}
+            {!isOtpSent && (
+              <button type="submit" className="btn btn-primary">
+                Register
               </button>
-            </>
-          )}
-        </form>
+            )}
+
+            {/* Send OTP button */}
+            {isOtpSent && (
+              <button onClick={handleSendOtp} className="btn btn-primary mb-3">
+                Send OTP
+              </button>
+            )}
+
+            {/* OTP input field */}
+            {isOtpSent && (
+              <>
+                <div className="mb-3 d-flex flex-column">
+                  <label htmlFor="otp" className="form-label text-start">
+                    OTP
+                  </label>
+                  <div
+                    className={`d-flex input-box ${
+                      errors.otp ? "border border-danger" : ""
+                    }`}
+                  >
+                    <MdOutlineDomainVerification className="fs-4" />
+                    <input
+                      type="text"
+                      className={`form-control ps-2`}
+                      id="otp"
+                      name="otp"
+                      value={otp}
+                      onChange={handleOtpChange}
+                      placeholder="Enter your OTP"
+                      required
+                    />
+                  </div>
+                </div>
+                {errors.otp && (
+                  <div className="error-handling text-start mb-2">
+                    {errors.otp}
+                  </div>
+                )}
+
+                {/* Verify OTP button */}
+                <button onClick={handleVerifyOtp} className="btn">
+                  Verify OTP
+                </button>
+              </>
+            )}
+          </form>
+        </div>
+      </div>
+      <div className="login-lower-part">
+        <h5 className="text-white">
+          Already have an account? <Link to="/login">Sign in</Link>
+        </h5>
       </div>
     </div>
   );

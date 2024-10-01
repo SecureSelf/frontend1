@@ -3,9 +3,11 @@ import Calendar from 'react-calendar'; // Import calendar library
 import 'react-calendar/dist/Calendar.css'; // Optional: import pre-built styles
 import axios from 'axios'; // Assuming you use axios to fetch data
 
+
 import bgforlogin from '../img/bgforlogin.webp'
 
 import { StoreContext } from '../store/storeContext';
+
 
 
 const Strike = () => {

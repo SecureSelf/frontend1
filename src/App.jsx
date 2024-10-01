@@ -18,10 +18,16 @@ import Strike from "./components/Strikes";
 import Documentupload from "./components/Documentupload";
 import ExpertMain from "./components/ExpertMain";
 function App() {
+
   // const { isLogin } = useContext(StoreContext);
-  const isLogin = false
+  // const isLogin = false
+
+  // const { isLogin } = useContext(StoreContext);
+  const isLogin = true
+
   return (
     <>
+    <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -49,6 +55,7 @@ function App() {
           )}
         </Route>
       </Routes>
+      </Router>
     </>
   );
 }

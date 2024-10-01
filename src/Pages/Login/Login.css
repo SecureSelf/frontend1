@@ -1,62 +1,41 @@
 /* Full height with flexbox centering */
 .login-section{
   min-height: 100vh;
-}
-.login-wrapper {
-  /* min-height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #f3f4f6;  */
+  flex-direction: column;
 }
-
 /* Card-like container */
 .login-wrapper > div {
   background-color: white; 
   padding: 40px 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow for better depth */
-  max-width: 450px; /* Fixed width to center and align */
-  width: 100%; /* Ensure responsiveness */
-  text-align: center; /* Align text to center */
- 
+  max-width: 450px; 
+  width: 100%; 
+  text-align: center; 
 }
-
-/* Title styling */
 h2 {
   margin-bottom: 20px;
-  color: #333; /* Darker text for contrast */
+  color: #333; 
 }
-
-/* Input fields styling */
-/* .form-control {
-  width: 100%;
-  padding: 12px; 
-  margin-bottom: 20px;
-  border: 1px solid #ddd; 
-  border-radius: 5px;
-  font-size: 16px;
-} */
 .form-label{
   font-weight: 600;
 }
-/* Error message styling */
 .error-handling {
   color: red;
   font-size: 14px;
   margin-top: 10px;
 }
-
-/* Submit button styling */
 .login-section .btn {
-  background-color: #00c389 !important; /* Green button */
+  background-color: #00c389 !important; 
   color: white !important;
   padding: 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  width: 100%; /* Full width button */
+  width: 100%; 
   margin-top: 10px;
 }
 

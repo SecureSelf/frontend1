@@ -2,10 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaHeart, FaRegHeart, FaDownload } from 'react-icons/fa'; // Icons for like and download buttons
 import { StoreContext } from '../store/storeContext';
 
-const Carddocument = ({ imageUrls }) => {
-
-  const {documents} = useContext(StoreContext);
-
+const Carddocument = () => {
+  const { documents } = useContext(StoreContext);
   const [likedImages, setLikedImages] = useState([]);
 
   // Load liked images from localStorage when the component mounts
@@ -39,46 +37,41 @@ const Carddocument = ({ imageUrls }) => {
   };
 
   return (
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+      {documents.map((item, index) => (
+        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg border-black">
+          {/* Image */}
+          <img 
+            src={item.imageUrl} 
+            alt={`image-${index}`} 
+            className="w-full h-48 object-cover"
+          />
 
-{documents.map((item, index) => (
-  <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg border-black">
+          {/* Like and Download Icons */}
+          <div className="absolute top-2 left-2 flex space-x-2">
+            {/* Like Button */}
+            <button 
+              onClick={() => toggleLike(index)} 
+              className="bg-white p-2 rounded-full shadow-lg"
+            >
+              {likedImages.includes(index) ? (
+                <FaHeart className="text-red-500" />
+              ) : (
+                <FaRegHeart className="text-gray-500" />
+              )}
+            </button>
 
-    {/* Image */}
-    <img 
-      src={item.imageUrl} 
-      alt={`image-${index}`} 
-      className="w-full h-48 object-cover"
-    />
-
-    {/* Like and Download Icons */}
-    <div className="absolute top-2 left-2 flex space-x-2">
-      {/* Like Button */}
-      <button 
-        onClick={() => toggleLike(index)} 
-        className="bg-white p-2 rounded-full shadow-lg"
-      >
-        {likedImages.includes(index) ? (
-          <FaHeart className="text-red-500" />
-        ) : (
-          <FaRegHeart className="text-gray-500" />
-        )}
-      </button>
-
-      {/* Download Button */}
-      <button 
-        onClick={() => handleDownload(item.imageUrl)} // Pass the image URL to download
-        className="bg-white p-2 rounded-full shadow-lg"
-      >
-         <FaDownload className="text-teal-500" />
-      </button>
+            {/* Download Button */}
+            <button 
+              onClick={() => handleDownload(item.imageUrl)} // Pass the image URL to download
+              className="bg-white p-2 rounded-full shadow-lg"
+            >
+              <FaDownload className="text-teal-500" />
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
-
-  </div>
-))}
-
-</div>
-
   );
 };
 
