@@ -129,11 +129,8 @@ const Register = () => {
       <div className="login-wrapper">
         <div className="mt-3 border">
           <h2 className="mb-4">Register</h2>
-          <p className="text-[#777777]">
-            Enter your credential to register
-          </p>
+          <p className="text-[#777777]">Enter your credential to register</p>
           <form onSubmit={handleSubmit}>
-
             {/* Name field */}
             <div className="mb-3 d-flex flex-column">
               <label htmlFor="email" className="form-label text-start">
@@ -163,8 +160,8 @@ const Register = () => {
                 <input
                   type="email"
                   className={`form-control ps-2 ${
-                  errors.password ? "is-invalid" : ""
-                }`}
+                    errors.password ? "is-invalid" : ""
+                  }`}
                   id="email"
                   name="email"
                   value={formData.email}
@@ -179,7 +176,11 @@ const Register = () => {
               <label htmlFor="password" className="form-label text-start">
                 Password
               </label>
-              <div className={`d-flex input-box ${errors.password ? "border border-danger" : ""}`}>
+              <div
+                className={`d-flex input-box ${
+                  errors.password ? "border border-danger" : ""
+                }`}
+              >
                 <FiLock className="fs-4" />
                 <input
                   type="password"
@@ -193,15 +194,21 @@ const Register = () => {
               </div>
             </div>
             {errors.password && (
-                <div className="error-handling text-start mb-2 display-flex flex-wrap">{errors.password}</div>
-              )}
+              <div className="error-handling text-start mb-2 display-flex flex-wrap">
+                {errors.password}
+              </div>
+            )}
 
             {/* Confirm password field */}
             <div className="mb-3 d-flex flex-column">
               <label htmlFor="password" className="form-label text-start">
                 Confirm Password
               </label>
-              <div className={`d-flex input-box ${errors.confirmPassword ? "border border-danger" : ""}`}>
+              <div
+                className={`d-flex input-box ${
+                  errors.confirmPassword ? "border border-danger" : ""
+                }`}
+              >
                 <FiLock className="fs-4" />
                 <input
                   type="password"
@@ -216,8 +223,10 @@ const Register = () => {
               </div>
             </div>
             {errors.confirmPassword && (
-                <div className="error-handling text-start mb-2">{errors.confirmPassword}</div>
-              )}
+              <div className="error-handling text-start mb-2">
+                {errors.confirmPassword}
+              </div>
+            )}
 
             {/* Submit button */}
             {!isOtpSent && (
@@ -240,13 +249,15 @@ const Register = () => {
                   <label htmlFor="otp" className="form-label text-start">
                     OTP
                   </label>
-                  <div className="d-flex input-box">
+                  <div
+                    className={`d-flex input-box ${
+                      errors.otp ? "border border-danger" : ""
+                    }`}
+                  >
                     <MdOutlineDomainVerification className="fs-4" />
                     <input
                       type="text"
-                      className={`form-control ps-2 ${
-                      errors.otp ? "is-invalid" : ""
-                    }`}
+                      className={`form-control ps-2`}
                       id="otp"
                       name="otp"
                       value={otp}
@@ -254,11 +265,13 @@ const Register = () => {
                       placeholder="Enter your OTP"
                       required
                     />
-                    {errors.otp && (
-                        <div className="invalid-feedback">{errors.otp}</div>
-                      )}
                   </div>
                 </div>
+                {errors.otp && (
+                  <div className="error-handling text-start mb-2">
+                    {errors.otp}
+                  </div>
+                )}
 
                 {/* Verify OTP button */}
                 <button onClick={handleVerifyOtp} className="btn">
@@ -271,7 +284,7 @@ const Register = () => {
       </div>
       <div className="login-lower-part">
         <h5 className="text-white">
-         Already have an account? <Link to="/login">Sign in</Link>
+          Already have an account? <Link to="/login">Sign in</Link>
         </h5>
       </div>
     </div>
