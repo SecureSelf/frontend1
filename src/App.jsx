@@ -12,62 +12,43 @@ import ForgetPassword from "./Pages/ForgetPassword/ForgetPassword";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import { useContext } from "react";
 import { StoreContext } from "./store/storeContext";
-import { Navigate } from 'react-router-dom';
 import Notes from "./Pages/Notes/Notes";
 import Strike from "./components/Strikes";
 import Documentupload from "./components/Documentupload";
 import ExpertMain from "./components/ExpertMain";
+
 function App() {
-
-  // const { isLogin } = useContext(StoreContext);
-  // const isLogin = false
-
-  // const { isLogin } = useContext(StoreContext);
-  const isLogin = true
+  const isLogin = true; // You can replace this with the context value: const { isLogin } = useContext(StoreContext);
 
   return (
     <>
-<<<<<<< HEAD
-    <Router>
-=======
-     <Router>
->>>>>>> c7ff14aa4eadc8b58d84d2130364c780f75e3965
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/reset-password/:id" element={<ResetPassword />} />
-        <Route path="/forget-password" element={<ForgetPassword />} />
+      <Router>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/reset-password/:id" element={<ResetPassword />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
 
-        <Route path="/" element={<Layout />}>
-          {isLogin ? (
-            <>
-              <Route index path="/" element={<Loginmain />} />
-<<<<<<< HEAD
-              <Route path="/upload/:category" element={<Uploadcard />} />
-              <Route path="/other" element={<Otherupload />} />
-              <Route path="/other-doc" element={<Other_doc />} />
-              <Route path="/notes" element={<Notes />} />
-              <Route path="/strikes" element={<Strike />} />
-              <Route path="/document" element={<Documentupload />} />
-              <Route path="/contact" element={<ExpertMain />} />
-=======
-              <Route path="upload/:category" element={<Uploadcard />} />
-              <Route path="other" element={<Otherupload />} />
-              <Route path="other-doc" element={<Other_doc />} />
-              <Route path="notes" element={<Notes />} />
-              <Route path="strikes" element={<Strike />} />
-              <Route path="document" element={<Documentupload />} />
->>>>>>> c7ff14aa4eadc8b58d84d2130364c780f75e3965
-              
-            </>
-          ) : (
-            // If logged out, redirect to home page for any other route
-            <>
-              <Route index path="/" element={<Homemain/>} />
-            </>
-          )}
-        </Route>
-      </Routes>
+          {/* Protected routes */}
+          <Route path="/" element={<Layout />}>
+            {isLogin ? (
+              <>
+                <Route index element={<Loginmain />} />
+                <Route path="/upload/:category" element={<Uploadcard />} />
+                <Route path="/other" element={<Otherupload />} />
+                <Route path="/other-doc" element={<Other_doc />} />
+                <Route path="/notes" element={<Notes />} />
+                <Route path="/strikes" element={<Strike />} />
+                <Route path="/document" element={<Documentupload />} />
+                <Route path="/contact" element={<ExpertMain />} />
+              </>
+            ) : (
+              // If not logged in, show the home page
+              <Route index element={<Homemain />} />
+            )}
+          </Route>
+        </Routes>
       </Router>
     </>
   );

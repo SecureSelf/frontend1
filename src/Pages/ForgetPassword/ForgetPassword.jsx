@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './ForgetPassword.css';
 import { StoreContext } from "../../store/storeContext";
-
+import bgforlogin from '../../img/bgforlogin.webp'
+import logo from '../../img/website logo.png'
 const ForgetPassword = () => {
   const {url} = useContext(StoreContext);
   const [email, setEmail] = useState("");
@@ -51,9 +52,14 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className="forget-password-wrapper background-gray">
-      <div className="mt-5">
-        <h2 className="mb-4">Forgot Password</h2>
+    <div className="forget-password-wrapper justify-center items-center bg-cover flex flex-col"
+      style={{ backgroundImage: `url(${bgforlogin})` }}>
+          
+            <img src={logo} alt="" className="w-[150px] h-[150px] mt-[-150px]" />
+            <h1 className="text-white">Secure Self</h1>
+        
+      <div className="mt-5 ">
+        <h2 className="mb-4 text-center">Forgot Password</h2>
         <form>
 
           {/* Email input field */}
