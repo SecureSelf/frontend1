@@ -73,15 +73,22 @@ const StoreContextProvider = (props) => {
       const savedToken = localStorage.getItem("token");
       if (savedToken) {
         setToken(savedToken); // Set the token in state
-        await fetchUserData(); // Fetch user data
-        await fetchDocuments(); // Fetch documents
-        await fetchNotes(); // Fetch notes
+          await fetchUserData(); // Fetch user data
+          
       }
     };
     loadData();
   }, []);
 
   // Optional: Log userDetails whenever they change
+  useEffect(() => {
+    const loadData = async () =>{
+      await fetchDocuments(); // Fetch documents
+      await fetchNotes(); // Fetch notes
+    }
+    loadData();
+  }, [isLogin]); 
+
   useEffect(() => {
     // console.log("Updated userDetails:", userDetails); 
   }, [userDetails]); 

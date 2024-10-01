@@ -5,6 +5,7 @@ import { RiInboxArchiveLine } from "react-icons/ri";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import NotesBox from "../../components/NotesBox/NotesBox";
+
 import { StoreContext } from "../../store/storeContext";
 import axios from "axios";
 
@@ -15,6 +16,11 @@ const Notes = () => {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const { notes,addNote } = useContext(StoreContext);
+  
+  if (!notes) {
+    // Show loading or placeholder if notes haven't been fetched yet
+    return <div>Loading...</div>;
+  }
 
   const handleAddNotes = async () => {
     if (!title || !description) {
@@ -77,9 +83,8 @@ const Notes = () => {
             </div>
           </div>
           <div className="col-10 px-5 position-relative">
-            <div className="d-flex flex-row justify-content-end mt-3"
-              onClick={() => setNotesAddBox("z-3")}>
-              <button className="btn">Add Note</button>
+            <div className="d-flex flex-row justify-content-end mt-3">
+              <button onClick={() => setNotesAddBox("z-3")} className="btn">Add Note</button>
             </div>
             <div className={`d-flex flex-column p-3 rounded-2 position-absolute gap-15 addNotesBox ${notesAddBox}`}>
               <div className="form-floating mt-2">
@@ -102,7 +107,7 @@ const Notes = () => {
                   id="floatingPassword"
                   placeholder="Notes"
                 />
-                <label htmlFor="floatingPassword">Notes</label>
+                <label htmlFor="floatingPassword">Description</label>
               </div>
               <div>
                 <button onClick={handleAddNotes} className="btn ">

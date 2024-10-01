@@ -21,6 +21,7 @@ function App() {
   // const isLogin = true
   return (
     <>
+     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -31,12 +32,12 @@ function App() {
           {isLogin ? (
             <>
               <Route index path="/" element={<Loginmain />} />
-              <Route path="/upload/:category" element={<Uploadcard />} />
-              <Route path="/other" element={<Otherupload />} />
-              <Route path="/other-doc" element={<Other_doc />} />
-              <Route path="/notes" element={<Notes />} />
-              <Route path="/strikes" element={<Strike />} />
-              <Route path="/document" element={<Documentupload />} />
+              <Route path="upload/:category" element={<Uploadcard />} />
+              <Route path="other" element={<Otherupload />} />
+              <Route path="other-doc" element={<Other_doc />} />
+              <Route path="notes" element={<Notes />} />
+              <Route path="strikes" element={<Strike />} />
+              <Route path="document" element={<Documentupload />} />
               
             </>
           ) : (
@@ -47,6 +48,7 @@ function App() {
           )}
         </Route>
       </Routes>
+      </Router>
     </>
   );
 }
