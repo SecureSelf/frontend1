@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../../img/ima.webp";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "./Header.css";
 import { StoreContext } from "../../store/storeContext";
@@ -9,28 +9,47 @@ import Avatar from 'react-avatar';
 function Header() {
   const [activeMenu, setActiveMenu] = useState("home");
   const { url, setIsLogin, isLogin, userDetails } = useContext(StoreContext);
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const location = useLocation();
   const handleLogout = async () => {
     const newUrl = url + '/user/logout';
 
-    axios.get(newUrl, {
-      withCredentials: true,
-    })
-    .then((response) => {
+    try {
+      await axios.get(newUrl, {
+        withCredentials: true,
+      });
       localStorage.removeItem("token");
       setIsLogin(false);
-      navigate("/");
-    })
-    .catch((error) => {
+      navigate("/"); 
+    } catch (error) {
       console.log("An error occurred. Please try again.");
-    });
+    }
   };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+  
+  useEffect(() => {
+    if (location.pathname) {
+        const params = location.pathname;
+        if(params === '/'){
+          setActiveMenu("home");
+        }else if(params === '/notes'){
+          setActiveMenu("notes");
+        }
+        else if(params === '/document'){
+          setActiveMenu("document");
+        }
+        else if(params === '/contact'){
+          setActiveMenu("home");
+        }
+        else if(params === '/strikes'){
+          setActiveMenu("strikes");
+        }
+    }
+  }, [location]);
 
   return (
     <header className="bg-gray-800 text-white p-2 w-full d-flex align-items-center justify-content-between">
@@ -42,7 +61,7 @@ function Header() {
           &#9776;
         </span>
       </div>
-      
+
       {/* Desktop Menu */}
       <div className="nav-middle ml-[-30vw] d-none d-lg-block">
         <ul className="d-flex align-items-center gap-15 mb-0">

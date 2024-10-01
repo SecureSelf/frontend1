@@ -27,7 +27,11 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
     <Router>
+=======
+     <Router>
+>>>>>>> c7ff14aa4eadc8b58d84d2130364c780f75e3965
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -38,6 +42,7 @@ function App() {
           {isLogin ? (
             <>
               <Route index path="/" element={<Loginmain />} />
+<<<<<<< HEAD
               <Route path="/upload/:category" element={<Uploadcard />} />
               <Route path="/other" element={<Otherupload />} />
               <Route path="/other-doc" element={<Other_doc />} />
@@ -45,6 +50,14 @@ function App() {
               <Route path="/strikes" element={<Strike />} />
               <Route path="/document" element={<Documentupload />} />
               <Route path="/contact" element={<ExpertMain />} />
+=======
+              <Route path="upload/:category" element={<Uploadcard />} />
+              <Route path="other" element={<Otherupload />} />
+              <Route path="other-doc" element={<Other_doc />} />
+              <Route path="notes" element={<Notes />} />
+              <Route path="strikes" element={<Strike />} />
+              <Route path="document" element={<Documentupload />} />
+>>>>>>> c7ff14aa4eadc8b58d84d2130364c780f75e3965
               
             </>
           ) : (

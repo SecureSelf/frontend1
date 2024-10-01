@@ -35,13 +35,16 @@ const Strike = () => {
   //   fetchLoginData();
   // }, []);
 
-  useEffect(async ()=>{
+  useEffect(() => {
     const fetchLoginData = async () => {
-      const highlighted = userDetails.logins.map(login => new Date(login.loginDate));
-      setHighlightedDates(highlighted);
-    }
-    await fetchLoginData();
-  },[])
+      if (userDetails && userDetails.logins) {
+        const highlighted = userDetails.logins.map(login => new Date(login.loginDate));
+        setHighlightedDates(highlighted);
+      }
+    };
+    fetchLoginData();
+  }, [userDetails]); // Adding userDetails as a dependency
+  
 
   // Highlight the dates on the calendar
   const tileContent = ({ date, view }) => {
