@@ -2,10 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaHeart, FaRegHeart, FaDownload } from 'react-icons/fa'; // Icons for like and download buttons
 import { StoreContext } from '../store/storeContext';
 
-const Carddocument = ({ imageUrls }) => {
-
-  const {documents} = useContext(StoreContext);
-
+const Carddocument = () => {
+  const { documents } = useContext(StoreContext);
   const [likedImages, setLikedImages] = useState([]);
 
   // Load liked images from localStorage when the component mounts
@@ -41,7 +39,7 @@ const Carddocument = ({ imageUrls }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {documents.map((item, index) => (
-        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg">
+        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg border-black">
           {/* Image */}
           <img 
             src={item.imageUrl} 
@@ -68,7 +66,7 @@ const Carddocument = ({ imageUrls }) => {
               onClick={() => handleDownload(item.imageUrl)} // Pass the image URL to download
               className="bg-white p-2 rounded-full shadow-lg"
             >
-               <FaDownload className="text-teal-500" />
+              <FaDownload className="text-teal-500" />
             </button>
           </div>
         </div>
