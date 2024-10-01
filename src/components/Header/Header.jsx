@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import logo from "../../img/ima.webp";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "./Header.css";
 import { StoreContext } from "../../store/storeContext";
@@ -9,10 +9,9 @@ import Avatar from 'react-avatar';
 function Header() {
   const [activeMenu, setActiveMenu] = useState("home");
   const { url, setIsLogin, isLogin, userDetails } = useContext(StoreContext);
-  const navigate = useNavigate();
-  const { id } = useParams();  // Using useParams to extract parameters
+  const navigate = useNavigate();  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const location = useLocation();
   const handleLogout = async () => {
     const newUrl = url + '/user/logout';
 
@@ -22,7 +21,7 @@ function Header() {
       });
       localStorage.removeItem("token");
       setIsLogin(false);
-      navigate("/");  // Use navigate to redirect after logout
+      navigate("/"); 
     } catch (error) {
       console.log("An error occurred. Please try again.");
     }
@@ -31,13 +30,26 @@ function Header() {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-
-  // Optional: useParams in action, in case you want to utilize route params
+  
   useEffect(() => {
-    if (id) {
-      console.log("Current ID:", id);  // Log the extracted route param for debugging
+    if (location.pathname) {
+        const params = location.pathname;
+        if(params === '/'){
+          setActiveMenu("home");
+        }else if(params === '/notes'){
+          setActiveMenu("notes");
+        }
+        else if(params === '/document'){
+          setActiveMenu("document");
+        }
+        else if(params === '/contact'){
+          setActiveMenu("home");
+        }
+        else if(params === '/strikes'){
+          setActiveMenu("strikes");
+        }
     }
-  }, [id]);
+  }, [location]);
 
   return (
     <header className="bg-gray-800 text-white p-2 w-full d-flex align-items-center justify-content-between">
