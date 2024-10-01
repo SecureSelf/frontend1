@@ -17,8 +17,8 @@ import Notes from "./Pages/Notes/Notes";
 import Strike from "./components/Strikes";
 import Documentupload from "./components/Documentupload";
 function App() {
-  // const { isLogin } = useContext(StoreContext);
-  const isLogin = true
+  const { isLogin } = useContext(StoreContext);
+  // const isLogin = true
   return (
     <>
       <Routes>
