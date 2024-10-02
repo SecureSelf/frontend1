@@ -206,7 +206,7 @@ function Otherupload() {
     }
 
     const formData = new FormData();
-    formData.append('images', imageSelected);
+    formData.append('image', imageSelected);
 
     try {
       setUploading(true); // Start loading
