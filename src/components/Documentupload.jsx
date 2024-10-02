@@ -24,7 +24,7 @@ import { StoreContext } from '../store/storeContext';
 function Documentupload() {
   
   return (
-    <div className=" ">
+    <div className="min-h-[295px]">
     <h1 className="text-3xl font-bold text-center my-4 ">Document Upload</h1>
     <div className=' bg-black w-[250px] text-center  m-auto h-[3px]  justify-center'></div>
     <Carddocument />
