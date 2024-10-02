@@ -58,7 +58,7 @@ function Header() {
       } else if (params === "/document") {
         setActiveMenu("document");
       } else if (params === "/contact") {
-        setActiveMenu("home");
+        setActiveMenu("contact");
       } else if (params === "/strikes") {
         setActiveMenu("strikes");
       }
@@ -78,19 +78,19 @@ function Header() {
        <div className="nav-middle  lg:ml-[-30vw] ">
          <ul className="d-flex align-items-center gap-15 mb-0">
            <li className={activeMenu === "home" ? "active-menu" : ""}>
-             <Link to="/" onClick={() => setActiveMenu("home")}>Home</Link>
+             <Link to="/" >Home</Link>
            </li>
            <li className={activeMenu === "document" ? "active-menu" : ""}>
-             <Link to="/document" onClick={() => setActiveMenu("document")}>Document</Link>
+             <Link to="/document" >Document</Link>
            </li>
            <li className={activeMenu === "notes" ? "active-menu" : ""}>
-             <Link to="/notes" onClick={() => setActiveMenu("notes")}>Notes</Link>
+             <Link to="/notes" >Notes</Link>
            </li>
            <li className={activeMenu === "strikes" ? "active-menu" : ""}>
-             <Link to="/strikes" onClick={() => setActiveMenu("strikes")}>Strikes</Link>
+             <Link to="/strikes" >Strikes</Link>
            </li>
            <li className={activeMenu === "contact" ? "active-menu" : ""}>
-             <Link to="/contact" onClick={() => setActiveMenu("contact")}>Contact Us</Link>
+             <Link to="/contact">Contact Us</Link>
            </li>
          </ul>
        </div>

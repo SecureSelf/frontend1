@@ -178,10 +178,10 @@ const Register = () => {
             </div>
 
             {/* Submit button */}
-            {!isOtpSent && <button type="submit" className="btn btn-primary">Register</button>}
+            {!isOtpSent && <button type="submit" className="btn">Register</button>}
 
             {/* Send OTP button */}
-            {isOtpSent && <button onClick={handleSendOtp} className="btn btn-primary mb-3">Send OTP</button>}
+            {isOtpSent && <button onClick={handleSendOtp} className="btn  mb-3">Send OTP</button>}
 
             {/* OTP input and verify button */}
             {isOtpSent && (

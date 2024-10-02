@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 export const StoreContext = createContext();
 
 const StoreContextProvider = (props) => {
   const url = "http://localhost:5100/api";
   const [token, setToken] = useState("");
-  const [isLogin, setIsLogin] = useState(false); 
+  const [isLogin, setIsLogin] = useState(false);
   const [userDetails, setUserDetails] = useState({});
   const [notes, setNotes] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -15,7 +15,7 @@ const StoreContextProvider = (props) => {
   const fetchDocuments = async () => {
     const storedToken = localStorage.getItem("token");
     try {
-      const response = await axios.get(url + '/document/get-documents', {
+      const response = await axios.get(url + "/document/get-documents", {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -23,7 +23,10 @@ const StoreContextProvider = (props) => {
       });
       setDocuments(response.data);
     } catch (error) {
-      console.error("Error fetching documents:", error.response ? error.response.data : error);
+      console.error(
+        "Error fetching documents:",
+        error.response ? error.response.data : error
+      );
     }
   };
 
@@ -31,7 +34,7 @@ const StoreContextProvider = (props) => {
   const fetchNotes = async () => {
     const storedToken = localStorage.getItem("token");
     try {
-      const response = await axios.get(url + '/notes/get-notes', {
+      const response = await axios.get(url + "/notes/get-notes", {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -39,7 +42,10 @@ const StoreContextProvider = (props) => {
       });
       setNotes(response.data); // Update notes state
     } catch (error) {
-      console.error("Error fetching notes:", error.response ? error.response.data : error);
+      console.error(
+        "Error fetching notes:",
+        error.response ? error.response.data : error
+      );
     }
   };
 
@@ -47,7 +53,7 @@ const StoreContextProvider = (props) => {
   const fetchUserData = async () => {
     try {
       const storedToken = localStorage.getItem("token");
-      const response = await axios.get(url + '/user/get-user', {
+      const response = await axios.get(url + "/user/get-user", {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -58,12 +64,15 @@ const StoreContextProvider = (props) => {
         setUserDetails({
           name: response.data.name,
           email: response.data.email,
-          login: response.data.logins
+          login: response.data.logins,
         });
-        setIsLogin(true); 
+        setIsLogin(true);
       }
     } catch (error) {
-      console.error("Failed to get the user data", error.response ? error.response.data : error);
+      console.error(
+        "Failed to get the user data",
+        error.response ? error.response.data : error
+      );
     }
   };
 
@@ -73,25 +82,27 @@ const StoreContextProvider = (props) => {
       const savedToken = localStorage.getItem("token");
       if (savedToken) {
         setToken(savedToken); // Set the token in state
-          await fetchUserData(); // Fetch user data
-          
+        await fetchUserData(); // Fetch user data
       }
     };
     loadData();
   }, []);
 
   // Optional: Log userDetails whenever they change
-  useEffect(() => {
-    const loadData = async () =>{
-      await fetchDocuments(); // Fetch documents
-      await fetchNotes(); // Fetch notes
-    }
-    loadData();
-  }, [isLogin]); 
+  
+    useEffect(() => {
+      const loadData = async () => {
+        await fetchDocuments(); // Fetch documents
+        await fetchNotes(); // Fetch notes
+      };
+      if (isLogin === true) {
+        loadData();
+      }
+    }, [isLogin]);
 
   useEffect(() => {
-    // console.log("Updated userDetails:", userDetails); 
-  }, [userDetails]); 
+    // console.log("Updated userDetails:", userDetails);
+  }, [userDetails]);
 
   // Optional: Log notes whenever they change
   useEffect(() => {
@@ -105,14 +116,18 @@ const StoreContextProvider = (props) => {
 
   // Add a new note
   const addNote = async (title, description) => {
-    const newUrl = url + '/notes/add-notes';
+    const newUrl = url + "/notes/add-notes";
     try {
-      const response = await axios.post(newUrl, { title, description }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        newUrl,
+        { title, description },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          withCredentials: true,
+        }
+      );
       await fetchNotes(); // Fetch updated notes after adding
     } catch (error) {
       console.error("Error adding note:", error);
@@ -139,12 +154,16 @@ const StoreContextProvider = (props) => {
   const updateNote = async (notesId, category, bgcolor) => {
     const newUrl = url + `/notes/update-notes/${notesId}`;
     try {
-      await axios.put(newUrl, { category, bgcolor }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        withCredentials: true,
-      });
+      await axios.put(
+        newUrl,
+        { category, bgcolor },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          withCredentials: true,
+        }
+      );
       await fetchNotes(); // Fetch updated notes after deletion
     } catch (error) {
       console.error("Error updating note:", error);
@@ -156,16 +175,16 @@ const StoreContextProvider = (props) => {
     url,
     isLogin,
     setIsLogin,
-    userDetails, 
+    userDetails,
     setToken,
     notes,
     setNotes, // Add notes to context,
     addNote,
     deleteNote,
     updateNote,
-    documents
+    documents,
   };
-  
+
   return (
     <StoreContext.Provider value={ContextValue}>
       {props.children}
