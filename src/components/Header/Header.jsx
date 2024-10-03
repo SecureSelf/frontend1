@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import logo from "../../img/ima.webp";
+import logo from "../../img/Secure-Self__2_-removebg-preview.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Header.css";
@@ -68,7 +68,7 @@ function Header() {
 
   return (
     <>
-      {windowSize.width >= 770 ? <header className="bg-gray-800 text-white p-2 w-full d-flex align-items-center justify-content-between">
+      {windowSize.width >= 770 ? <header className="bg-gray-800 text-white p-0 w-full d-flex align-items-center justify-content-between">
 
        <div className="nav-left d-flex align-items-center">
          <img src={logo} alt="Website Logo" className="website-logo" />
@@ -119,14 +119,14 @@ function Header() {
        </div>
      </header>:<></>}
 
-      {windowSize.width <770 ? <header className="bg-gray-800 text-white p-2 w-full d-flex flex-column justify-content-center">
-        <div className="d-flex flex-row w-100 justify-content-between p-2">
+      {windowSize.width <770 ? <header className="bg-gray-800 text-white px-2 w-full d-flex flex-column justify-content-center">
+        <div className="d-flex flex-row w-100 justify-content-between p-0">
           <div className="d-flex flex-row justify-content-center">
             <img
               src={logo}
               alt="Website Logo"
               className="website-logo"
-              width={50}
+              width={100}
             />
             {/* <span className="text-xl font-bold ml-2">Secure-Self</span> */}
           </div>
