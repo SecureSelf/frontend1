@@ -39,12 +39,12 @@ const Carddocument = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {documents.map((item, index) => (
-        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg border-black">
+        <div key={index} className="relative border rounded-lg overflow-hidden shadow-lg border-black width-[150px] height-[150px]">
           {/* Image */}
           <img 
             src={item.imageUrl} 
             alt={`image-${index}`} 
-            className="w-full h-48 object-cover"
+            className="w-100  object-cover img-fluid"
           />
 
           {/* Like and Download Icons */}
