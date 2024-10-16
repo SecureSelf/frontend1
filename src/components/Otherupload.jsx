@@ -207,6 +207,7 @@ function Otherupload() {
 
     const formData = new FormData();
     formData.append('image', imageSelected);
+    console.log("image",imageSelected);
 
     try {
       setUploading(true); // Start loading
@@ -218,7 +219,7 @@ function Otherupload() {
         },
         withCredentials: true,
       });
-      setImageUrl(response.data[0].url); // Set the uploaded image URL
+      setImageUrl(response.data.url.url); // Set the uploaded image URL
       setUploading(false); // Stop loading
     } catch (error) {
       console.error('Error uploading image:', error);

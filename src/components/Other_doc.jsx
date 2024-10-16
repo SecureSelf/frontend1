@@ -24,6 +24,7 @@ function Other_doc() {
     const formData = new FormData();
     formData.append('image', imageSelected);
 
+    console.log("image",imageSelected);
     try {
       setUploading(true); // Start loading
       const storedToken = localStorage.getItem("token");
@@ -34,7 +35,7 @@ function Other_doc() {
         },
         withCredentials: true,
       });
-      setImageUrl(response.data[0].url); // Set the uploaded image URL
+      setImageUrl(response.data.url.url); // Set the uploaded image URL
       setUploading(false); // Stop loading
     } catch (error) {
       console.error('Error uploading image:', error);

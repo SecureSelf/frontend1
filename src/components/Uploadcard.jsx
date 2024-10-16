@@ -33,7 +33,7 @@ function Uploadcard() {
         },
         withCredentials: true,
       });
-      setImageUrl(response.data[0].url); // Set the uploaded image URL
+      setImageUrl(response.data.url.url); // Set the uploaded image URL
       setUploading(false); // Stop loading
     } catch (error) {
       console.error('Error uploading image:', error);
