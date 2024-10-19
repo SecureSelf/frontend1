@@ -162,9 +162,20 @@ function Header() {
                 Contact Us
               </Link>
             </li>
-            <li>
+            {isLogin === true?(
+              <li>
               <Link onClick={handleLogout}>Logout</Link>
             </li>
+            ):(
+              <>
+              <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to='/register'>Register</Link>
+            </li>
+            </>
+            )}
           </ul>
         </div>}
       </header>:<></>}
